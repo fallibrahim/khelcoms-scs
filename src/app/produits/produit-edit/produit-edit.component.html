@@ -1,0 +1,125 @@
+<ng-container *ngIf="errorMessage">
+    <div class="alert alert-danger d-flex align-items-center" (click)="hideError()">
+        <span class="material-icons me-2">error</span>
+            {{ errorMessage }}
+        <span class="material-icons ms-auto">
+          close
+        </span>
+    </div>
+</ng-container>
+<div class="card">
+    <div class="card-header text-white" id="entete">
+        {{ pageTitle }}
+    </div>
+    <form novalidate [formGroup]="produitForms" (ngSubmit)="saveProduit()">
+    <div class="card-body">
+         <div class="form-group row mb-2">
+         <label for="nomProduitId" class="col-md-2 col-form-label">
+             nom produit
+         </label>
+         <div class="col-md-8">
+             <input type="text"
+              class="form-control"
+              placeholder="nom(obligatoire)"
+              formControlName="nomProduit"
+              [ngClass]="{'is-invalid': formErrors['nomProduit']}"
+              id="nomProduitId"/>
+              <span class="invalid-feedback">
+                {{ formErrors['nomProduit'] }}
+              </span>  
+         </div>
+         </div>
+         <div class="form-group row mb-2">
+             <label for="prixId" class="col-md-2 col-form-label">
+                prix
+             </label>
+             <div class="col-md-8">
+                 <input type="text"
+                  class="form-control"
+                  placeholder="nom(obligatoire)"
+                  formControlName="prix"
+                  [ngClass]="{'is-invalid': formErrors['prix']}"
+                  id="prixId"/>
+                  <span class="invalid-feedback">
+                    {{ formErrors['prix'] }}
+                  </span>
+             </div>
+             </div>
+             <div class="form-group row mb-2">
+                 <label for="evId" class="col-md-2 col-form-label">
+                    Evalution(1-5)
+                 </label>
+                 <div class="col-md-8">
+                     <input type="text"
+                      class="form-control"
+                      placeholder="Evalution(1-5)"
+                      formControlName="rating"
+                      [ngClass]="{'is-invalid': formErrors['rating']}"
+                      id="evId"/>
+                      <span class="invalid-feedback">
+                        {{ formErrors['rating'] }}
+                       </span>
+                 </div>
+                 </div>
+                 <div>
+                    <div class="form-group row mb-2">
+                        <label class="col-md-2 col-form-label">
+                         Etiquette  
+                        </label>
+                        <div class="col-md-8">
+                            <input type="text"
+                             class="form-control"
+                             placeholder="Etiquette"
+                          >
+                        </div>
+                        <button type="button" 
+                         class="col-md-2 btn btn-outline-danger btn-sm">
+                            supprimer
+                        </button>
+                        </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-2">
+                            <button class="btn btn-outline-primary btn-sm">
+                             ajouter une étiquette
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="descriptionId" class="col-md-2 col-form-label">
+                            Description 
+                        </label>
+                        <div class="col-md-8">
+                        <textarea
+                        id="descriptionId" 
+                        cols="30" 
+                        rows="10"
+                        class="form-control"
+                        formControlName="description"
+                        id="nomHotelId"></textarea>
+                    </div>
+                </div>      
+          </div>
+       <div class="card-footer">
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <button class="btn btn-primary me-3" type="submit"
+             [disabled]="produitForms.controls['nomProduit' || 'prix' || 'rating'].invalid">
+                enregistrer
+            </button>
+            <button class="btn btn-outline-secondary me-3" 
+            type="reset"
+            routerLink="/hotels">
+            annuler 
+        </button>
+        <button 
+        class="btn btn-outline-danger" (click)="deleteProduit()"
+        type="button"
+        [disabled]="this.produit.id == 0">
+        supprimer
+    </button>
+</div>
+</div>
+</div>
+</form>
+</div>

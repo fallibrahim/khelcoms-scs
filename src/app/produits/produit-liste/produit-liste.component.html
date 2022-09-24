@@ -1,0 +1,69 @@
+    <div class="container">
+    <h2 *ngIf="produits && produits.length > 0" class="mt-5">{{ title }}</h2>
+    <button class="btn  d-flex mb-2 text-white" (click)="toggleIsNewBadge()" id="couleur">
+        <span class="material-icons">
+          {{ showBadge ? 'visibility' : 'visibility_off' }}
+        </span>
+        <span class="ms-2">
+            {{ showBadge ? 'cacher ' : 'afficher '}}  nouveau
+        </span> 
+    </button>
+    <hr>
+   <div class="my-2">
+    <div class="row">
+        <div class="col-md-4">
+           <span class="filter">
+            filtre actuel :
+          </span> 
+            <strong>{{ produitFilter }}</strong>
+           
+        </div>
+        <div class="col-md-8">
+        <input type="text" class="form-control"  [(ngModel)]="produitFilter">
+        </div>
+        <p class="alert alert-success" *ngIf="!!receiveRating">
+           {{ receiveRating }}
+        </p>
+    </div>
+   </div>
+    <div class="row row-cols-1 row-cols-md-3">
+        <div class="col-mb-4" *ngFor="let produit of filteredProduits">
+            <div class="card" style="width: 18rem;">
+                <img [src]="produit.imageUrl " 
+                class="card-img-top"
+               [title]="produit.nomProduit | uppercase"
+                 [alt]="produit.nomProduit">
+                <div class="card-body">
+                  <h5 class="card-title">{{ produit.nomProduit }}</h5>
+                  <p class="card-text">{{ produit.description }}</p>
+                  <h6 class="card-text text-success">
+                    {{ produit.prix | currency : "frcs" : "symbol" : "1.2-3" :"fr" }}
+                  </h6> 
+                  <div class="d-flex justify-content-between align-items-baseline">
+                    <app-star-rating [rating]="produit.rating" 
+                    id="rating"
+                    (startRatingClicked)="receiveRatingClicked($event)">
+                    </app-star-rating>
+                    <span class="material-icons bg-info p-2 text-white rounded-circle"
+                    [routerLink]="['/produit', produit.id, 'edit']">
+                      edit
+                    </span>
+                    <span class="material-icons p-2 text-white rounded-circle bg-primary" 
+                    [routerLink]="['/produits', produit.id]">
+                     keyboard_arrow_right
+                    </span>
+                  </div>
+                  <div *ngFor="let tag of produit.tags">
+                    <div *ngIf="showBadge">
+                        <span class="badge badge-pill bg-info">
+                            {{ tag }}
+                        </span>
+                    </div>
+                  </div><br><br>
+                  <a href="#" class="btn btn-primary text-white">J'achète</a>
+                </div>
+              </div>
+        </div>
+    </div>
+    </div>
+

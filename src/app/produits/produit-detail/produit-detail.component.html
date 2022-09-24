@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="card" *ngIf="produit">
+        <div class="card-header text-white" id="couleur">
+          {{ produit.nomProduit | uppercase }}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-4">Nom Produit:</div>
+                    <div class="col-md-8">{{ produit.nomProduit }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">Prix:</div>
+                    <div class="col-md-8 text-success">
+                        {{ produit.prix | currency : "frcs" : "symbol" : "1.2-3" :"fr" }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> Description:</div>
+                    <div class="col-md-8">{{ produit.description }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"> Note:</div>
+                    <div class="col-md-8">
+                        <app-star-rating [rating]="produit.rating" id="rating">
+                        </app-star-rating> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img [src]="produit.imageUrl" 
+                [alt]="produit.nomProduit"
+                 [title]="produit.nomProduit | uppercase"
+                 class="card-img-top"/>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-outline-dark d-flex" 
+            (click)="backToListe()">
+             <span class="material-icons">
+                keyboard_arrow_left
+             </span>
+             retour à la liste
+            </button>
+        </div>
+    </div>
+</div>
